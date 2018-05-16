@@ -21,24 +21,22 @@ ENV HOME=/opt/app-root/src \
   KEY_PASSPHRASE= \
   SHARED_KEY=ocpaggregatedloggingsharedkey
 
-LABEL io.k8s.description="Fluentd container for collecting logs from other fluentd instances" \
+LABEL io.k8s.description="" \
   io.k8s.display-name="Fluentd Forwarder (${FLUENTD_VERSION})" \
   io.openshift.expose-services="24284:tcp \
   io.openshift.tags="logging,fluentd,forwarder" \
   name="fluentd-forwarder" \
   architecture=x86_64
+
 # add files
-ADD run.sh fluentd.conf.template passwd.template fluentd-check.sh ${HOME}/
 ADD common-*.sh /tmp/
-ADD redhat.repo /etc/yum.repos.d/
+#ADD redhat.repo /etc/yum.repos.d/
 # set permissions on files
-RUN chmod g+rx ${HOME}/fluentd-check.sh && \
-    chmod +x /tmp/common-*.sh
+RUN chmod +x /tmp/common-*.sh
 # execute files and remove when done
 RUN /tmp/common-install.sh && \
     rm -f /tmp/common-*.sh
 # set working dir
 WORKDIR ${HOME}
 # external port
-EXPOSE 24284
-CMD ["sh", "run.sh"]
+EXPOSE 9090
