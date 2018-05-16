@@ -5,7 +5,7 @@ ENV HOME=/opt/app-root/src \
 
 LABEL io.k8s.description="COCKPIT OPENSHIFT" \
   io.k8s.display-name="Cockpit Openshift" \
-  io.openshift.expose-services="9090:tcp \
+  io.openshift.expose-services="9090:tcp" \
   io.openshift.tags="cockpit" \
   name="cockpit" \
   architecture=x86_64
